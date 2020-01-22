@@ -4,15 +4,18 @@ import HighchartsReact from 'highcharts-react-official';
 import './styles.css';
 
 export default (props) => {
+    let { chartOptions, chartData, limits } = props;
+    let co = Object.assign({ title: null, xAxis: {}, yAxis: {} }, chartOptions);
+    let cd = Object.assign({ description: null, plotPoints: [] }, chartData);
+    let lim = Object.assign({ upper: {}, mean: {}, lower: {} }, limits);
     let error = { flag: false, message: '' };
-    let chartData = [];
-
+    
     const generateXaxis = () => {
         const xAxis = {
-            min: props.chartOptions.xAxis.min || null,
-            max: props.chartOptions.xAxis.max || null,
+            min: co.xAxis.min || null,
+            max: co.xAxis.max || null,
             title: {
-                text: props.chartOptions.xAxis.title || null
+                text: co.xAxis.title || null
             }
         }
         return xAxis;
@@ -20,10 +23,10 @@ export default (props) => {
 
     const generateYaxis = () => {
         const yAxis = {
-            min: props.chartOptions.xAxis.min || null,
-            max: props.chartOptions.xAxis.max || null,
+            min: co.xAxis.min || null,
+            max: co.xAxis.max || null,
             title: {
-                text: props.chartOptions.yAxis.title || null
+                text: co.yAxis.title || null
             },
             plotLines: generatePlotLines()
         }
@@ -34,53 +37,53 @@ export default (props) => {
         return [
             {
                 className: 'control-limit-2',
-                color: props.limits.upper.hexColor || '#51C2F0',
+                color: lim.upper.hexColor || '#51C2F0',
                 dashStyle: 'Dash',
-                width: props.limits.upper.width || 1,
-                value: props.limits.upper.value || 0,
+                width: lim.upper.width || 1,
+                value: lim.upper.value || 0,
                 label: {
                     align: 'right',
-                    text: props.limits.upper.text || '',
+                    text: lim.upper.text || '',
                     style: {
                         fontSize: '10px',
-                        color: props.limits.upper.hexColor || '#51C2F0'
+                        color: lim.upper.hexColor || '#51C2F0'
                     }
                 }
             },
             {
                 className: 'control-limit-2',
-                color: props.limits.lower.hexColor || '#51C2F0',
+                color: lim.lower.hexColor || '#51C2F0',
                 dashStyle: 'Dash',
-                width: props.limits.lower.width || 1,
-                value: props.limits.lower.value || 0,
+                width: lim.lower.width || 1,
+                value: lim.lower.value || 0,
                 label: {
                     align: 'right',
-                    text: props.limits.lower.text || '',
+                    text: lim.lower.text || '',
                     style: {
                         fontSize: '10px',
-                        color: props.limits.lower.hexColor || '#51C2F0'
+                        color: lim.lower.hexColor || '#51C2F0'
                     }
                 }
             },
             {
                 className: 'mean-data-line',
-                color: props.limits.mean.hexColor || '#8897A1',
-                width: props.limits.mean.width || 1,
-                value: props.limits.mean.value || 0,
+                color: lim.mean.hexColor || '#8897A1',
+                width: lim.mean.width || 1,
+                value: lim.mean.value || 0,
                 label: {
                     align: 'right',
-                    text: props.limits.mean.text || '',
+                    text: lim.mean.text || '',
                     style: {
                         fontSize: '10px',
-                        color: props.limits.mean.hexColor || '#8897A1'
+                        color: lim.mean.hexColor || '#8897A1'
                     }
                 }
             }
         ]
     }
     
-    if (props.chartData.plotPoints.length > 0) {
-        const { plotPoints: dataArray } = props.chartData;
+    if (cd.plotPoints.length > 0) {
+        const { plotPoints: dataArray } = cd;
         const plotPointArrayLength = dataArray.length;
         let axisCount = {
             x: 0,
@@ -92,7 +95,7 @@ export default (props) => {
             });
         });
         if (axisCount.x === plotPointArrayLength && axisCount.y === plotPointArrayLength) {
-            chartData = props.chartData.plotPoints
+            chartData = cd.plotPoints
         } else {
             error = { flag: true, message: "Incorrect data sent to SPC chart." };
         }
@@ -100,13 +103,13 @@ export default (props) => {
         error = { flag: true, message: "Incorrect data sent to SPC chart." };
     }
 
-    const chartOptions = {
+    const options = {
         chart: {
             className: 'mh-spc-chart',
             height: (9 / 16 * 100) + '%'
         },
         title: {
-            text: props.chartOptions.title || ''
+            text: co.title || ''
         },
         credits: {
             enabled: false
@@ -122,7 +125,7 @@ export default (props) => {
         series: [
             {
                 type: 'line',
-                name: props.chartData.description || '',
+                name: cd.description || '',
                 className: 'main-data-line',
                 data: chartData,
                 marker: {
@@ -146,7 +149,7 @@ export default (props) => {
                     <div className="spc-chart-container">
                         <HighchartsReact
                             highcharts={Highcharts}
-                            options={chartOptions}
+                            options={options}
                         />
                     </div>
             }

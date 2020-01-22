@@ -5,8 +5,8 @@ import App from './pages/app';
 import SpcChart from './organisms/spc_chart';
 import * as serviceWorker from './serviceWorker';
 
-const el = <App />;
-// const el = <SpcChart />;
+// const el = <App />;
+const el = <SpcChart />;
 
 ReactDOM.render(el, document.getElementById('root'));
 
