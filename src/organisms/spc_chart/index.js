@@ -5,6 +5,8 @@ import './styles.css';
 
 export default (props) => {
     let { chartOptions, chartData, limits } = props;
+
+    // Generate default structure to handle null props
     let co = Object.assign({ title: null, xAxis: {}, yAxis: {} }, chartOptions);
     let cd = Object.assign({ description: null, plotPoints: [] }, chartData);
     let lim = Object.assign({ upper: {}, mean: {}, lower: {} }, limits);
@@ -84,6 +86,8 @@ export default (props) => {
     
     if (cd.plotPoints.length > 0) {
         const { plotPoints: dataArray } = cd;
+
+        // Iterate over plot points and check if they are in the correct format for rendering i.e. [{ x: 1, y: 1 }]
         const plotPointArrayLength = dataArray.length;
         let axisCount = {
             x: 0,
