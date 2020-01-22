@@ -98,11 +98,7 @@ export default (props) => {
                 if (Object.keys(plotPoint).includes(axis) && (plotPoint[axis] !== null && plotPoint[axis] !== undefined) && Number.isInteger(plotPoint[axis])) axisCount[axis]++;
             });
         });
-        if (axisCount.x === plotPointArrayLength && axisCount.y === plotPointArrayLength) {
-            chartData = cd.plotPoints
-        } else {
-            error = { flag: true, message: "Incorrect data sent to SPC chart." };
-        }
+        if (axisCount.x !== plotPointArrayLength || axisCount.y !== plotPointArrayLength) error = { flag: true, message: "Incorrect data sent to SPC chart." };
     } else {
         error = { flag: true, message: "Incorrect data sent to SPC chart." };
     }
@@ -131,7 +127,7 @@ export default (props) => {
                 type: 'line',
                 name: cd.description || '',
                 className: 'main-data-line',
-                data: chartData,
+                data: cd.plotPoints,
                 marker: {
                     symbol: 'circle',
                     radius: 4,
