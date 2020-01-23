@@ -1,0 +1,17 @@
+.spc-error {
+    display: flex;
+    flex-flow: row-nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    color: #cc0000;
+    font-weight: bold;
+}
+
+.spc-chart-container {
+    width: 100%;
+}
+.spc-chart .highcharts-grid {
+    display: none;
+}
