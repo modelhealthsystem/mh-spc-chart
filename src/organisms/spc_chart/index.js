@@ -7,7 +7,7 @@ export default (props) => {
     let { chartOptions, chartData, limits } = props;
 
     // Generate default structure to handle null props
-    let co = Object.assign({ title: null, xAxis: {}, yAxis: {} }, chartOptions);
+    let co = Object.assign({ title: null, xAxis: {}, yAxis: {}, legend: {} }, chartOptions);
     let cd = Object.assign({ description: null, plotPoints: [] }, chartData);
     let lim = Object.assign({ upper: {}, mean: {}, lower: {} }, limits);
     let error = { flag: false, message: '' };
@@ -115,10 +115,10 @@ export default (props) => {
             enabled: false
         },
         legend: {
-            align: 'right',
-            verticalAlign: 'top',
-            layout: 'vertical',
-            floating: true
+            align: co.legend.justify || 'center',
+            verticalAlign: co.legend.verticalAlign || 'bottom',
+            layout: co.legend.layout || 'horizontal',
+            floating: co.legend.hover || false
         },
         xAxis: generateXaxis(),
         yAxis: generateYaxis(),

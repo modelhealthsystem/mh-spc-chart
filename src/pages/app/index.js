@@ -16,6 +16,12 @@ export default class SpcChart extends Component {
         min: null,
         max: null
       },
+      legend: {
+          justify: 'center',
+          verticalAlign: 'bottom',
+          layout: 'horizontal',
+          hover: false
+      }
     },
     chartData: {
       description: 'Onions Consumed',
