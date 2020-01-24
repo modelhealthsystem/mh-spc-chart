@@ -12,7 +12,9 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    command: publish
+    publishRegistry: useFeed
+    publishFeed: ModelHospital-SharedComponents
   displayName: 'Install Node.js'
 
 - script: |
