@@ -1,7 +1,10 @@
 import React from 'react';
 import Highcharts from 'highcharts';
+import HcExport from 'highcharts/modules/exporting'
 import HighchartsReact from 'highcharts-react-official';
 import './styles.css';
+
+HcExport(Highcharts)
 
 export default (props) => {
     let { chartOptions, chartData, limits } = props;
@@ -136,6 +139,15 @@ export default (props) => {
         ],
         tooltip: {
             enabled: true
+        },
+        exporting: {
+            enabled: co.export || false,
+            filename: co.title || "chart",
+            buttons: {
+                contextButton: {
+                    text: 'Options'
+                }
+            }
         }
     }
 

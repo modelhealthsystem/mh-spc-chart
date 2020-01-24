@@ -16,6 +16,7 @@ export default class SpcChart extends Component {
         min: null,
         max: null
       },
+      export: true,
       legend: {
           justify: 'center',
           verticalAlign: 'bottom',
