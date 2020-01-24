@@ -7,19 +7,23 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: Service
 
 steps:
 - task: NodeTool@0
   inputs:
-    command: publish
-    publishRegistry: useFeed
-    publishFeed: ModelHospital-SharedComponents
+    versionSpec: '10.x'
   displayName: 'Install Node.js'
 
 - script: |
     npm install
     npm run test
     npm run package
-    npm publish
   displayName: 'npm install and package, then publish to module repo'
+
+- task: Npm@1
+  inputs:
+    command: publish
+    publishRegistry: useFeed
+    publishFeed: ModelHospital-SharedComponents
+  displayName: 'Publish NPM module'
