@@ -25,5 +25,5 @@ steps:
   inputs:
     command: publish
     publishRegistry: useFeed
-    publishFeed: 'spc-chart-component'
+    publishFeed: 'react-components'
   displayName: 'Publish NPM module'
