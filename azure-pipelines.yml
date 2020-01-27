@@ -25,5 +25,5 @@ steps:
   inputs:
     command: publish
     publishRegistry: useFeed
-    publishFeed: ModelHospital-SharedComponents
+    publishFeed: 'ModelHospital-SharedComponents'
   displayName: 'Publish NPM module'
