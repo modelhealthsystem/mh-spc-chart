@@ -1,7 +1,9 @@
 import React from 'react';
 import Highcharts from 'highcharts';
+import HcExport from 'highcharts/modules/exporting';
 import HighchartsReact from 'highcharts-react-official';
 import './styles.css';
+HcExport(Highcharts);
 export default (props => {
   let {
     chartOptions,
@@ -12,7 +14,8 @@ export default (props => {
   let co = Object.assign({
     title: null,
     xAxis: {},
-    yAxis: {}
+    yAxis: {},
+    legend: {}
   }, chartOptions);
   let cd = Object.assign({
     description: null,
@@ -28,6 +31,14 @@ export default (props => {
     message: ''
   };
 
+  const generateStyledMode = () => {
+    if (co.styledMode && typeof co.styledMode === 'boolean') {
+      return co.styledMode;
+    }
+
+    return false;
+  };
+
   const generateXaxis = () => {
     const xAxis = {
       min: co.xAxis.min || null,
@@ -41,8 +52,8 @@ export default (props => {
 
   const generateYaxis = () => {
     const yAxis = {
-      min: co.xAxis.min || null,
-      max: co.xAxis.max || null,
+      min: co.yAxis.min || null,
+      max: co.yAxis.max || null,
       title: {
         text: co.yAxis.title || null
       },
@@ -125,7 +136,8 @@ export default (props => {
   const options = {
     chart: {
       className: 'mh-spc-chart',
-      height: 9 / 16 * 100 + '%'
+      height: 9 / 16 * 100 + '%',
+      styledMode: generateStyledMode()
     },
     title: {
       text: co.title || ''
@@ -134,10 +146,10 @@ export default (props => {
       enabled: false
     },
     legend: {
-      align: 'right',
-      verticalAlign: 'top',
-      layout: 'vertical',
-      floating: true
+      align: co.legend.justify || 'center',
+      verticalAlign: co.legend.verticalAlign || 'bottom',
+      layout: co.legend.layout || 'horizontal',
+      floating: co.legend.hover || false
     },
     xAxis: generateXaxis(),
     yAxis: generateYaxis(),
@@ -153,6 +165,15 @@ export default (props => {
     }],
     tooltip: {
       enabled: true
+    },
+    exporting: {
+      enabled: co.export || false,
+      filename: co.title || "chart",
+      buttons: {
+        contextButton: {
+          text: 'Options'
+        }
+      }
     }
   };
   return React.createElement(React.Fragment, null, error.flag ? React.createElement("div", {
