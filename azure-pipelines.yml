@@ -15,12 +15,23 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- script: |
-    npm run update_version
+- script:
     npm install
+  displayName: 'Install Dependencies'
+
+- script:
     npm run test
+  displayName: 'Run Unit Tests'
+
+- script:
     npm run package
-  displayName: 'Install dependencies, run unit tests, transpile component, & update version'
+  displayName: 'Transpile Component'
+
+- script:
+    npm run update_version
+    git commit -am 'Post-build Version Update'
+    git push origin master
+  displayName: 'Update Component Version'
 
 - task: Npm@1
   inputs:
