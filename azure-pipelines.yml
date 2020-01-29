@@ -29,7 +29,7 @@ steps:
 
 - script:
     npm run update_version &&
-    git commit -am 'Post-build Version Update'
+    git commit -m 'Post-build Version Update'
     git push origin master
   displayName: 'Update Component Version'
 
