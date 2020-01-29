@@ -28,7 +28,7 @@ steps:
   displayName: 'Transpile Component'
 
 - script:
-    npm run update_version
+    npm run update_version &&
     git commit -am 'Post-build Version Update'
     git push origin master
   displayName: 'Update Component Version'
