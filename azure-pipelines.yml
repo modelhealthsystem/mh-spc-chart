@@ -16,6 +16,11 @@ steps:
   displayName: 'Install Node.js'
 
 - script:
+    npm run update_version &&
+    git push origin master
+  displayName: 'Update Component Version'
+  
+- script:
     npm install
   displayName: 'Install Dependencies'
 
@@ -26,12 +31,6 @@ steps:
 - script:
     npm run package_win
   displayName: 'Transpile Component'
-
-- script:
-    npm run update_version &&
-    git commit -m 'Post-build Version Update'
-    git push origin master
-  displayName: 'Update Component Version'
 
 - task: Npm@1
   inputs:
