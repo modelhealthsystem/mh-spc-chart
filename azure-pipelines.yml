@@ -24,7 +24,7 @@ steps:
   displayName: 'Run Unit Tests'
 
 - script:
-    npm run package
+    npm run package_win
   displayName: 'Transpile Component'
 
 - script:
