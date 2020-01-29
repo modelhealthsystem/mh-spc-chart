@@ -30,7 +30,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "package": "cross-env NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src/ --out-dir dist --copy-files"
+    "package": "cross-env NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src/ --out-dir dist --copy-files",
+    "update_version": "npm version patch -m 'Bump version to %s [skip ci]' --force"
   },
   "eslintConfig": {
     "extends": "react-app"
