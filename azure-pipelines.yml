@@ -16,8 +16,7 @@ steps:
   displayName: 'Install Node.js'
 
 - script:
-    npm run update_version &&
-    git push
+    npm run update_version
   displayName: 'Update Component Version'
 
 - script:
