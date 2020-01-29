@@ -19,7 +19,8 @@ steps:
     npm install
     npm run test
     npm run package
-  displayName: 'npm install and package, then publish to module repo'
+    npm run update_version
+  displayName: 'Install dependencies, run unit tests, transpile component, & update version'
 
 - task: Npm@1
   inputs:
