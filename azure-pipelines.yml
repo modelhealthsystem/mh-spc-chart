@@ -16,10 +16,10 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
+    npm run update_version
     npm install
     npm run test
     npm run package
-    npm run update_version
   displayName: 'Install dependencies, run unit tests, transpile component, & update version'
 
 - task: Npm@1
