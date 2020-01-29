@@ -17,9 +17,9 @@ steps:
 
 - script:
     npm run update_version &&
-    git push origin master
+    git push
   displayName: 'Update Component Version'
-  
+
 - script:
     npm install
   displayName: 'Install Dependencies'
