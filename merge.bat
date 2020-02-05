@@ -9,6 +9,10 @@ ECHO GIT MERGE
 git merge %sourceBranch% -m "CI Build Merge to Master [skip ci]"
 ECHO GIT STATUS
 git status
+ECHO GIT ADD
+git add .
+ECHO GIT COMMIT
+git commit -am "CI Build Merge to Master [skip ci]"
 ECHO GIT PUSH
 git push origin
 ECHO GIT STATUS
