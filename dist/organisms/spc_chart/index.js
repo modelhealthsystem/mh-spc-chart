@@ -1,7 +1,9 @@
 import React from 'react';
 import Highcharts from 'highcharts';
+import HcExport from 'highcharts/modules/exporting';
 import HighchartsReact from 'highcharts-react-official';
 import './styles.css';
+HcExport(Highcharts);
 export default (props => {
   let {
     chartOptions,
@@ -12,7 +14,8 @@ export default (props => {
   let co = Object.assign({
     title: null,
     xAxis: {},
-    yAxis: {}
+    yAxis: {},
+    legend: {}
   }, chartOptions);
   let cd = Object.assign({
     description: null,
@@ -134,10 +137,10 @@ export default (props => {
       enabled: false
     },
     legend: {
-      align: 'right',
-      verticalAlign: 'top',
-      layout: 'vertical',
-      floating: true
+      align: co.legend.justify || 'center',
+      verticalAlign: co.legend.verticalAlign || 'bottom',
+      layout: co.legend.layout || 'horizontal',
+      floating: co.legend.hover || false
     },
     xAxis: generateXaxis(),
     yAxis: generateYaxis(),
@@ -153,6 +156,15 @@ export default (props => {
     }],
     tooltip: {
       enabled: true
+    },
+    exporting: {
+      enabled: co.export || false,
+      filename: co.title || "chart",
+      buttons: {
+        contextButton: {
+          text: 'Options'
+        }
+      }
     }
   };
   return React.createElement(React.Fragment, null, error.flag ? React.createElement("div", {
