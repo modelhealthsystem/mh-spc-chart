@@ -10,6 +10,10 @@ pool:
   name: Service
 
 steps:
+- checkout: self
+  persistCredentials: true
+  clean: true
+  displayName: 'Allow Scripts to Access System Token'
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
@@ -37,3 +41,8 @@ steps:
     publishRegistry: useFeed
     publishFeed: 'react-components'
   displayName: 'Publish NPM module'
+
+- task: BatchScript@1
+  inputs:
+    filename: 'merge.bat'
+  displayName: 'Merge Changes Back to Master Branch'

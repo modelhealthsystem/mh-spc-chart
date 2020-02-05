@@ -1,6 +1,6 @@
 {
   "name": "nhs-spc-chart-component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "license": "(ISC OR GPL-3.0)",
   "main": "dist/index.js",
