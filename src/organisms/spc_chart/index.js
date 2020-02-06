@@ -15,6 +15,13 @@ export default (props) => {
     let lim = Object.assign({ upper: {}, mean: {}, lower: {} }, limits);
     let error = { flag: false, message: '' };
     
+    const generateStyledMode = () => {
+        if (co.styledMode && typeof co.styledMode === 'boolean') {
+            return co.styledMode;
+        }
+        return false;
+    }
+    
     const generateXaxis = () => {
         const xAxis = {
             min: co.xAxis.min || null,
@@ -28,8 +35,8 @@ export default (props) => {
 
     const generateYaxis = () => {
         const yAxis = {
-            min: co.xAxis.min || null,
-            max: co.xAxis.max || null,
+            min: co.yAxis.min || null,
+            max: co.yAxis.max || null,
             title: {
                 text: co.yAxis.title || null
             },
@@ -109,7 +116,8 @@ export default (props) => {
     const options = {
         chart: {
             className: 'mh-spc-chart',
-            height: (9 / 16 * 100) + '%'
+            height: (9 / 16 * 100) + '%',
+            styledMode: generateStyledMode()
         },
         title: {
             text: co.title || ''

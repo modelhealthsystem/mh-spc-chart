@@ -5,58 +5,49 @@ export default class SpcChart extends Component {
 
   state = {
     chartOptions: {
-      title: 'Onion Consumption SPC Chart',
+      title: 'Water Consumption SPC Chart',
+      styledMode: false,
       xAxis: {
         title: 'Time (days)',
         min: null,
         max: null
       },
       yAxis: {
-        title: 'Onions',
-        min: null,
+        title: 'Water (ml)',
+        min: 750,
         max: null
       },
-      export: true,
-      legend: {
-          justify: 'center',
-          verticalAlign: 'bottom',
-          layout: 'horizontal',
-          hover: false
-      }
     },
     chartData: {
-      description: 'Onions Consumed',
+      description: 'Water Intake',
       plotPoints: [
-        { x: 0, y: 3},
-        { x: 10, y: 25},
-        { x: 20, y: 10},
-        { x: 30, y: 53},
-        { x: 40, y: 40},
-        { x: 50, y: 60},
-        { x: 60, y: 2},
-        { x: 70, y: 15},
-        { x: 80, y: 45},
-        { x: 90, y: 52},
+        { x: 1, y: 2000},
+        { x: 2, y: 3150},
+        { x: 3, y: 1350},
+        { x: 4, y: 3750},
+        { x: 5, y: 750},
+        { x: 6, y: 3250},
+        { x: 7, y: 3500}
       ]
     },
     limits: {
       upper: {
         hexColor: '#51C2F0',
         width: 1,
-        text: 'Upper Limit',
-        value: 50
+        text: 'Overhydrated',
+        value: 3250
       },
       mean: {
         hexColor: '#8897A1',
         width: 1,
-        text: 'Mean',
-        value: 30
+        text: 'Target',
+        value: 2500
       },
       lower: {
         hexColor: '#8897A1',
         width: 1,
-        text: 'Lower Limit',
-        value: 10
+        text: 'Underhydrated',
+        value: 1750
       }
     }
   }

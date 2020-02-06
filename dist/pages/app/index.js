@@ -9,13 +9,16 @@ export default class SpcChart extends Component {
     _defineProperty(this, "state", {
       chartOptions: {
         title: 'Onion Consumption SPC Chart',
+        styledMode: false,
         xAxis: {
           title: 'Time (days)',
+          lineColor: 'green',
           min: null,
           max: null
         },
         yAxis: {
           title: 'Onions',
+          lineColor: 'red',
           min: null,
           max: null
         },
