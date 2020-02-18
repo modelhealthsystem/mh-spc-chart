@@ -14,6 +14,6 @@ git add .
 ECHO GIT COMMIT
 git commit -am "CI Build Merge to Master [skip ci]"
 ECHO GIT PUSH
-git push origin
+git push origin HEAD:master --force
 ECHO GIT STATUS
 git status

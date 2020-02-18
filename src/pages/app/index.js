@@ -14,40 +14,39 @@ export default class SpcChart extends Component {
       },
       yAxis: {
         title: 'Water (ml)',
-        min: 750,
+        min: null,
         max: null
       },
     },
     chartData: {
       description: 'Water Intake',
       plotPoints: [
-        { x: 1, y: 2000},
-        { x: 2, y: 3150},
-        { x: 3, y: 1350},
-        { x: 4, y: 3750},
-        { x: 5, y: 750},
-        { x: 6, y: 3250},
-        { x: 7, y: 3500}
+        { x: 1, y: 35},
+        { x: 2, y: 34},
+        { x: 3, y: 28},
+        { x: 4, y: 27},
+        { x: 5, y: 29},
+        { x: 6, y: 26.5},
+        { x: 7, y: 32},
+        { x: 8, y: 24},
+        { x: 9, y: 27.5}
       ]
     },
     limits: {
       upper: {
-        hexColor: '#51C2F0',
-        width: 1,
-        text: 'Overhydrated',
-        value: 3250
+        hexColor: '#7FBF7F',
+        text: 'Upper CL',
+        // values: [37,37,37,37,37,37,37,37,37]
       },
       mean: {
         hexColor: '#8897A1',
-        width: 1,
-        text: 'Target',
-        value: 2500
+        text: 'Mean',
+        // values: [30,30,30,30,30,30,30,30,30]
       },
       lower: {
-        hexColor: '#8897A1',
-        width: 1,
-        text: 'Underhydrated',
-        value: 1750
+        hexColor: '#B20000',
+        text: 'Lower CL',
+        // values: [23,23,23,23,23,23,23,23,23]
       }
     }
   }
