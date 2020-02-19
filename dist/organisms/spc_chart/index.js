@@ -56,55 +56,9 @@ export default (props => {
       max: co.yAxis.max || null,
       title: {
         text: co.yAxis.title || null
-      },
-      plotLines: generatePlotLines()
+      }
     };
     return yAxis;
-  };
-
-  const generatePlotLines = () => {
-    return [{
-      className: 'control-limit-2',
-      color: lim.upper.hexColor || '#51C2F0',
-      dashStyle: 'Dash',
-      width: lim.upper.width || 1,
-      value: lim.upper.value || 0,
-      label: {
-        align: 'right',
-        text: lim.upper.text || '',
-        style: {
-          fontSize: '10px',
-          color: lim.upper.hexColor || '#51C2F0'
-        }
-      }
-    }, {
-      className: 'control-limit-2',
-      color: lim.lower.hexColor || '#51C2F0',
-      dashStyle: 'Dash',
-      width: lim.lower.width || 1,
-      value: lim.lower.value || 0,
-      label: {
-        align: 'right',
-        text: lim.lower.text || '',
-        style: {
-          fontSize: '10px',
-          color: lim.lower.hexColor || '#51C2F0'
-        }
-      }
-    }, {
-      className: 'mean-data-line',
-      color: lim.mean.hexColor || '#8897A1',
-      width: lim.mean.width || 1,
-      value: lim.mean.value || 0,
-      label: {
-        align: 'right',
-        text: lim.mean.text || '',
-        style: {
-          fontSize: '10px',
-          color: lim.mean.hexColor || '#8897A1'
-        }
-      }
-    }];
   };
 
   if (cd.plotPoints.length > 0) {
@@ -119,7 +73,7 @@ export default (props => {
     };
     dataArray.forEach(plotPoint => {
       ['x', 'y'].forEach(axis => {
-        if (Object.keys(plotPoint).includes(axis) && plotPoint[axis] !== null && plotPoint[axis] !== undefined && Number.isInteger(plotPoint[axis])) axisCount[axis]++;
+        if (Object.keys(plotPoint).includes(axis) && plotPoint[axis] !== null && plotPoint[axis] !== undefined && typeof plotPoint[axis] === 'number') axisCount[axis]++;
       });
     });
     if (axisCount.x !== plotPointArrayLength || axisCount.y !== plotPointArrayLength) error = {
@@ -132,6 +86,62 @@ export default (props => {
       message: "Incorrect data sent to SPC chart."
     };
   }
+
+  const calculateLimits = () => {
+    const limitObject = {
+      type: 'spline',
+      name: null,
+      description: null,
+      className: 'control-limit-2',
+      pointStart: cd.plotPoints && Array.isArray(cd.plotPoints) && cd.plotPoints.length > 0 ? cd.plotPoints[0].x : 0,
+      color: null,
+      data: [],
+      dataLabels: [{
+        enabled: false
+      }],
+      marker: {
+        enabled: false
+      },
+      dashStyle: 'shortdot',
+      showInLegend: true,
+      states: {
+        hover: {
+          enabled: false,
+          marker: {
+            enabled: false
+          }
+        },
+        inactive: {
+          opacity: 1
+        }
+      },
+      enableMouseTracking: false
+    };
+    const calculationData = cd.plotPoints.map((pp, idx) => ({
+      data: pp.y,
+      amr: cd.plotPoints.length - 1 === idx ? Math.abs(pp.y - 0) : Math.abs(pp.y - cd.plotPoints[idx + 1].y),
+      mean: cd.plotPoints.map(pp => pp.y).reduce((a, b) => a + b, 0) / cd.plotPoints.length
+    }));
+    const upperLimit = Object.assign({}, ...[limitObject, {
+      name: lim.upper.text || '',
+      description: lim.upper.text || '',
+      color: lim.upper.hexColor || undefined,
+      data: lim.upper.values && Array.isArray(lim.upper.values) && lim.upper.values.length > 0 && lim.upper.values.length >= cd.plotPoints.length ? lim.upper.values : calculationData.map(d => d.mean + 2.66 * (calculationData.map(cd => cd.amr).reduce((a, b) => a + b, 0) / calculationData.length))
+    }]);
+    const meanLimit = Object.assign({}, ...[limitObject, {
+      name: lim.mean.text || '',
+      description: lim.mean.text || '',
+      color: lim.mean.hexColor || undefined,
+      data: lim.mean.values && Array.isArray(lim.mean.values) && lim.mean.values.length > 0 && lim.mean.values.length >= cd.plotPoints.length ? lim.mean.values : calculationData.map(d => d.mean)
+    }]);
+    const lowerLimit = Object.assign({}, ...[limitObject, {
+      name: lim.lower.text || '',
+      description: lim.lower.text || '',
+      color: lim.lower.hexColor || undefined,
+      data: lim.lower.values && Array.isArray(lim.lower.values) && lim.lower.values.length > 0 && lim.lower.values.length >= cd.plotPoints.length ? lim.lower.values : calculationData.map(d => d.mean - 2.66 * (calculationData.map(cd => cd.amr).reduce((a, b) => a + b, 0) / calculationData.length))
+    }]);
+    return [upperLimit, meanLimit, lowerLimit];
+  };
 
   const options = {
     chart: {
@@ -161,8 +171,13 @@ export default (props => {
       marker: {
         symbol: 'circle',
         radius: 4
+      },
+      states: {
+        inactive: {
+          opacity: 1
+        }
       }
-    }],
+    }, ...calculateLimits()],
     tooltip: {
       enabled: true
     },
