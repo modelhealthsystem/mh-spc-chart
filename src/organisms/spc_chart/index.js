@@ -88,9 +88,12 @@ export default (props) => {
 
         const calculationData = cd.plotPoints.map((pp, idx) => ({
             data: pp.y,
-            amr: (cd.plotPoints.length-1 === idx) ? Math.abs(pp.y - 0) : Math.abs(pp.y - cd.plotPoints[idx + 1].y),
+            amr: (cd.plotPoints.length-1 === idx) ? null : Math.abs(pp.y - cd.plotPoints[idx + 1].y),
             mean: cd.plotPoints.map(pp => pp.y).reduce((a,b) => a + b, 0) / cd.plotPoints.length
         }));
+
+        const amrList = calculationData.map(cd => cd.amr).filter(Number);
+        const averageAMR = amrList.reduce((a,b) => a + b, 0) / amrList.length;
         
         const upperLimit = Object.assign({}, ...[limitObject, { 
             name: lim.upper.text || '', 
@@ -98,8 +101,9 @@ export default (props) => {
             color: lim.upper.hexColor || undefined,
             data: (lim.upper.values && Array.isArray(lim.upper.values) && lim.upper.values.length > 0 && lim.upper.values.length >= cd.plotPoints.length) 
                 ? lim.upper.values 
-                : calculationData.map(d => d.mean + 2.66 * (calculationData.map(cd => cd.amr).reduce((a,b) => a + b, 0) / calculationData.length))
+                : calculationData.map(d => d.mean + 2.66 * averageAMR)
         }]);
+
         const meanLimit = Object.assign({}, ...[limitObject, { 
             name: lim.mean.text || '', 
             description: lim.mean.text || '', 
@@ -115,7 +119,7 @@ export default (props) => {
             color: lim.lower.hexColor || undefined,
             data: (lim.lower.values && Array.isArray(lim.lower.values) && lim.lower.values.length > 0 && lim.lower.values.length >= cd.plotPoints.length) 
                 ? lim.lower.values 
-                : calculationData.map(d => d.mean - 2.66 * (calculationData.map(cd => cd.amr).reduce((a,b) => a + b, 0) / calculationData.length) ) 
+                : calculationData.map(d => d.mean - 2.66 * averageAMR ) 
         }]);
 
         return [upperLimit, meanLimit, lowerLimit]

@@ -8,80 +8,65 @@ export default class SpcChart extends Component {
 
     _defineProperty(this, "state", {
       chartOptions: {
-        title: 'Onion Consumption SPC Chart',
+        title: 'Water Consumption SPC Chart',
         styledMode: false,
         xAxis: {
           title: 'Time (days)',
-          lineColor: 'green',
           min: null,
           max: null
         },
         yAxis: {
-          title: 'Onions',
-          lineColor: 'red',
+          title: 'Water (ml)',
           min: null,
           max: null
-        },
-        export: true,
-        legend: {
-          justify: 'center',
-          verticalAlign: 'bottom',
-          layout: 'horizontal',
-          hover: false
         }
       },
       chartData: {
-        description: 'Onions Consumed',
+        description: 'Water Intake',
         plotPoints: [{
-          x: 0,
-          y: 3
+          x: 1,
+          y: 35
         }, {
-          x: 10,
-          y: 25
+          x: 2,
+          y: 34
         }, {
-          x: 20,
-          y: 10
+          x: 3,
+          y: 28
         }, {
-          x: 30,
-          y: 53
+          x: 4,
+          y: 27
         }, {
-          x: 40,
-          y: 40
+          x: 5,
+          y: 29
         }, {
-          x: 50,
-          y: 60
+          x: 6,
+          y: 26.5
         }, {
-          x: 60,
-          y: 2
+          x: 7,
+          y: 32
         }, {
-          x: 70,
-          y: 15
+          x: 8,
+          y: 24
         }, {
-          x: 80,
-          y: 45
-        }, {
-          x: 90,
-          y: 52
+          x: 9,
+          y: 27.5
         }]
       },
       limits: {
         upper: {
-          hexColor: '#51C2F0',
-          width: 1,
-          text: 'Upper Limit',
-          value: 50
+          hexColor: '#7FBF7F',
+          text: 'Upper CL' // values: [37,37,37,37,37,37,37,37,37]
+
         },
         mean: {
           hexColor: '#8897A1',
-          width: 1,
-          text: 'Mean',
-          value: 30
+          text: 'Mean' // values: [30,30,30,30,30,30,30,30,30]
+
         },
         lower: {
-          hexColor: '#8897A1',
-          width: 1,
-          text: 'Lower Limit',
-          value: 10
+          hexColor: '#B20000',
+          text: 'Lower CL' // values: [23,23,23,23,23,23,23,23,23]
+
         }
       }
     });
