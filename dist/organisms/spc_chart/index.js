@@ -127,18 +127,18 @@ export default (props => {
 
     const createLimitData = () => {
       if (limit.values && Array.isArray(limit.values) && limit.values.length > 0 && limit.values.length >= cd.plotPoints.length) return limit.values;
-      const amr = calculationData.map(cd => cd.amr).filter(Boolean).reduce((a, b) => a + b, 0);
-      debugger;
+      const amrList = calculationData.map(cd => cd.amr).filter(Boolean);
+      const amr = amrList.reduce((a, b) => b += a) / calculationData.map(cd => cd.amr).filter(Boolean).length;
 
       switch (type) {
         case 'upper':
-          return calculationData.map(d => d.mean + 2.66 * (calculationData.map(cd => cd.amr).reduce((a, b) => a + b, 0) / calculationData.length));
+          return calculationData.map(d => d.mean + 2.66 * amr);
 
         case 'mean':
           return calculationData.map(d => d.mean);
 
         case 'lower':
-          return calculationData.map(d => d.mean - 2.66 * (calculationData.map(cd => cd.amr).reduce((a, b) => a + b, 0) / calculationData.length));
+          return calculationData.map(d => d.mean - 2.66 * amr);
 
         default:
           return limit.values;
@@ -156,7 +156,6 @@ export default (props => {
   const upperLimit = createLimitObject(lim.upper, 'upper');
   const meanLimit = createLimitObject(lim.mean, 'mean');
   const lowerLimit = createLimitObject(lim.lower, 'lower');
-  debugger;
   const limitArray = [upperLimit, meanLimit, lowerLimit];
 
   const _plotPoints = cd.plotPoints.map((p, idx) => {
