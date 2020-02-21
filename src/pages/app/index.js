@@ -38,18 +38,18 @@ export default class SpcChart extends Component {
         anomalyColor: 'orange',
         hexColor: '#7FBF7F',
         text: 'Upper CL',
-        values: [33,33,33,31,31,31,31,31,31]
+        // values: [33,33,33,31,31,31,31,31,31]
       },
       mean: {
         hexColor: '#8897A1',
         text: 'Mean',
-        values: [30,30,30,28,28,28,28,28,28]
+        // values: [30,30,30,28,28,28,28,28,28]
       },
       lower: {
         anomalyColor: 'orange',
         hexColor: '#B20000',
         text: 'Lower CL',
-        values: [23,23,23,27.25,27.25,27.25,27.25,27.25,27.25]
+        // values: [23,23,23,27.25,27.25,27.25,27.25,27.25,27.25]
       }
     }
   }
