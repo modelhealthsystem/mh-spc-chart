@@ -65,7 +65,7 @@ export default (props) => {
 
     const calculationData = cd.plotPoints.map((pp, idx) => ({
         data: pp.y,
-        amr: (cd.plotPoints.length-1 === idx) ? Math.abs(pp.y - 0) : Math.abs(pp.y - cd.plotPoints[idx + 1].y),
+        amr: (cd.plotPoints.length-1 === idx) ? null : Math.abs(pp.y - cd.plotPoints[idx + 1].y),
         mean: cd.plotPoints.map(pp => pp.y).reduce((a,b) => a + b, 0) / cd.plotPoints.length
     }));
 
@@ -93,10 +93,13 @@ export default (props) => {
         };
         const createLimitData = () => {
             if (limit.values && Array.isArray(limit.values) && limit.values.length > 0 && limit.values.length >= cd.plotPoints.length) return limit.values;
+            const amrList = calculationData.map(cd => cd.amr).filter(Boolean);
+            const amr = amrList.reduce((a,b) => b += a) / calculationData.map(cd => cd.amr).filter(Boolean).length;
+            
             switch(type) {
-                case 'upper': return calculationData.map(d => d.mean + 2.66 * (calculationData.map(cd => cd.amr).reduce((a,b) => a + b, 0) / calculationData.length));
+                case 'upper': return calculationData.map(d => d.mean + 2.66 * amr);
                 case 'mean': return calculationData.map(d => d.mean);
-                case 'lower': return calculationData.map(d => d.mean - 2.66 * (calculationData.map(cd => cd.amr).reduce((a,b) => a + b, 0) / calculationData.length));
+                case 'lower': return calculationData.map(d => d.mean - 2.66 * amr);
                 default: return limit.values;
             }
         }
