@@ -128,6 +128,7 @@ export default (props => {
     const createLimitData = () => {
       if (limit.values && Array.isArray(limit.values) && limit.values.length > 0 && limit.values.length >= cd.plotPoints.length) return limit.values;
       const amrList = calculationData.map(cd => cd.amr).filter(Boolean);
+      if (amrList.length < 1) return limit.values;
       const amr = amrList.reduce((a, b) => b += a) / calculationData.map(cd => cd.amr).filter(Boolean).length;
 
       switch (type) {
