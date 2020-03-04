@@ -1,28 +1,28 @@
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-import React, { Component } from 'react';
-import SpcChartComponent from '../../organisms/spc_chart';
+import React, { Component } from "react";
+import SpcChartComponent from "../../organisms/spc_chart";
 export default class SpcChart extends Component {
   constructor(...args) {
     super(...args);
 
     _defineProperty(this, "state", {
       chartOptions: {
-        title: 'Water Consumption SPC Chart',
+        title: "Water Consumption SPC Chart",
         styledMode: false,
         xAxis: {
-          title: 'Time (days)',
+          title: "Time (days)",
           min: null,
           max: null
         },
         yAxis: {
-          title: 'Water (ml)',
+          title: "Water (ml)",
           min: null,
           max: null
         }
       },
       chartData: {
-        description: 'Water Intake',
+        description: "Water Intake",
         plotPoints: [{
           x: 1,
           y: 35
@@ -53,22 +53,22 @@ export default class SpcChart extends Component {
         }]
       },
       limits: {
-        rules: ['Western Electric'],
+        rules: ["Western Electric"],
         upper: {
-          anomalyColor: 'orange',
-          hexColor: '#7FBF7F',
-          text: 'Upper CL' // values: [33,33,33,31,31,31,31,31,31]
+          anomalyColor: "orange",
+          hexColor: "#7FBF7F",
+          text: "Upper CL" // values: [33, 33, 33, 31, 31, 31, 31, 31, 31]
 
         },
         mean: {
-          hexColor: '#8897A1',
-          text: 'Mean' // values: [30,30,30,28,28,28,28,28,28]
+          hexColor: "#8897A1",
+          text: "Mean" // values: [30, 30, 30, 28, 28, 28, 28, 28, 28]
 
         },
         lower: {
-          anomalyColor: 'orange',
-          hexColor: '#B20000',
-          text: 'Lower CL' // values: [23,23,23,27.25,27.25,27.25,27.25,27.25,27.25]
+          anomalyColor: "orange",
+          hexColor: "#B20000",
+          text: "Lower CL" // values: [23, 23, 23, 27.25, 27.25, 27.25, 27.25, 27.25, 27.25]
 
         }
       }
