@@ -1,12 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./pages/app";
 import SpcChart from "./organisms/spc_chart";
 import * as serviceWorker from "./serviceWorker";
 
-// Dev testing - Use App for Dummy state defaults
-// const el = <App />;
 const el = <SpcChart />;
 
 ReactDOM.render(el, document.getElementById("root"));
